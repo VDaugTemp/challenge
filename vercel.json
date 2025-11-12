@@ -1,10 +1,23 @@
 {
     "version": 2,
     "builds": [
-      { "src": "frontend/package.json", "use": "@vercel/next" },
+      { 
+        "src": "frontend/package.json", 
+        "use": "@vercel/next",
+        "config": {
+          "env": {
+            "NEXT_PUBLIC_API_URL": "@api-url"
+          }
+        }
+      },
       { 
         "src": "api/app.py",
-        "use": "@vercel/python"
+        "use": "@vercel/python",
+        "config": {
+          "env": {
+            "OPENAI_API_KEY": "@openai-api-key"
+          }
+        }
       }
     ],
     "routes": [
@@ -16,5 +29,8 @@
         "src": "/(.*)", 
         "dest": "frontend/$1"
       }
-    ]
+    ],
+    "env": {
+      "OPENAI_API_KEY": "@openai-api-key"
+    }
   } 
