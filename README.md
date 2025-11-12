@@ -1,196 +1,287 @@
-<p align = "center" draggable=”false” ><img src="https://github.com/AI-Maker-Space/LLM-Dev-101/assets/37101144/d1343317-fa2f-41e1-8af1-1dbb18399719" 
+<p align = "center" draggable="false" ><img src="https://github.com/AI-Maker-Space/LLM-Dev-101/assets/37101144/d1343317-fa2f-41e1-8af1-1dbb18399719" 
      width="200px"
      height="auto"/>
 </p>
 
-## <h1 align="center" id="heading"> 👋 Welcome to the AI Engineer Challenge</h1>
+## <h1 align="center" id="heading"> 🤖 AI Chat Application</h1>
 
-## 🤖 Your First Vibe Coding LLM Application
+<p align="center">
+  <strong>A modern, full-stack LLM-powered chat application built with FastAPI and Next.js</strong>
+</p>
 
-> If you are a novice, and need a bit more help to get your dev environment off the ground, check out this [Setup Guide](docs/GIT_SETUP.md). This guide will walk you through the 'git' setup you need to get started.
+<p align="center">
+  <a href="https://challenge-kzpvc7da8-vdaugs-projects.vercel.app/" target="_blank">🌐 Live Demo</a> •
+  <a href="#-features">Features</a> •
+  <a href="#-getting-started">Getting Started</a> •
+  <a href="#-testing">Testing</a>
+</p>
 
-> For additional context on LLM development environments and API key setup, you can also check out our [Interactive Dev Environment for LLM Development](https://github.com/AI-Maker-Space/Interactive-Dev-Environment-for-AI-Engineers).
+---
 
-In this repository, we'll walk you through the steps to create a LLM (Large Language Model) powered application with a vibe-coded frontend!
+## 🎯 Features
 
-Are you ready? Let's get started!
+This application brings together the power of OpenAI's GPT models with a beautiful, intuitive interface:
 
-<details>
-  <summary>🖥️ Accessing "gpt-4.1-mini" (ChatGPT) like a developer</summary>
+- **💬 Streaming Chat Interface** - Real-time streaming responses powered by OpenAI's API
+- **🎨 Preset Prompts** - Organized preset prompts across multiple categories (Learning, Games, Creativity, Reflection, Productivity, Tech)
+- **📊 Metrics Dashboard** - Visualize your chat metrics with beautiful Recharts visualizations
+- **📝 Chat History** - Persistent chat history with session management (stored in localStorage)
+- **🎭 Theme Support** - Customizable themes with dark/light mode support
+- **⚡ Fast & Modern** - Built with Next.js 16 and FastAPI for optimal performance
 
-1. Head to [this notebook](https://colab.research.google.com/drive/1sT7rzY_Lb1_wS0ELI1JJfff0NUEcSD72?usp=sharing) and follow along with the instructions!
+## 🌐 Live Demo
 
-2. Complete the notebook and try out your own system/assistant messages!
+**Check out the live application:** [https://challenge-kzpvc7da8-vdaugs-projects.vercel.app/](https://challenge-kzpvc7da8-vdaugs-projects.vercel.app/)
 
-That's it! Head to the next step and start building your application!
+> 💡 **Pro Tip:** Open the demo in an incognito window to see it as a first-time visitor!
 
-</details>
+---
 
-<details>
-  <summary>🏗️ Forking & Cloning This Repository</summary>
+## 🚀 Getting Started
 
-Before you begin, make sure you have:
+### Prerequisites
 
-1. 👤 A GitHub account (you'll need to replace `YOUR_GITHUB_USERNAME` with your actual username)
-2. 🔧 Git installed on your local machine
-3. 💻 A code editor (like Cursor, VS Code, etc.)
-4. ⌨️ Terminal access (Mac/Linux) or Command Prompt/PowerShell (Windows)
-5. 🔑 A GitHub Personal Access Token (for authentication)
+Before you dive in, make sure you have:
 
-Got everything in place? Let's move on!
+- **Python 3.11+** (automatically managed by `uv`)
+- **Node.js 18+** (20.9.0+ recommended for Next.js 16)
+- **OpenAI API Key** - Get yours at [platform.openai.com](https://platform.openai.com/)
+- **Git** - For cloning the repository
+- **npm or yarn** - For managing frontend dependencies
 
-1. Fork [this](https://github.com/AI-Maker-Space/The-AI-Engineer-Challenge) repo!
+### Backend Setup
 
-   ![image](https://i.imgur.com/bhjySNh.png)
+The backend is a FastAPI service that handles chat requests and streams responses from OpenAI.
 
-1. Clone your newly created repo.
-
+1. **Install `uv` package manager** (if you haven't already):
    ```bash
-   # First, navigate to where you want the project folder to be created
-   cd PATH_TO_DESIRED_PARENT_DIRECTORY
+   pip install uv
+   ```
+   > `uv` will automatically download and manage Python 3.11 for you on first run!
 
-   # Then clone (this will create a new folder called The-AI-Engineer-Challenge)
-   git clone git@github.com:<YOUR GITHUB USERNAME>/The-AI-Engineer-Challenge.git
+2. **Install backend dependencies**:
+   ```bash
+   # From the project root
+   uv sync
+   ```
+   This creates a `.venv/` directory and installs all required packages.
+
+3. **Set your OpenAI API key**:
+   ```bash
+   export OPENAI_API_KEY=sk-your-api-key-here
+   ```
+   > On Windows (PowerShell): `$env:OPENAI_API_KEY="sk-your-api-key-here"`
+
+4. **Start the backend server**:
+   ```bash
+   # Development mode with auto-reload
+   uv run uvicorn api.app:app --reload
+   
+   # Or run directly
+   uv run python api/app.py
    ```
 
-   > Note: This command uses SSH. If you haven't set up SSH with GitHub, the command will fail. In that case, use HTTPS by replacing `git@github.com:` with `https://github.com/` - you'll then be prompted for your GitHub username and personal access token.
+   The API will be available at `http://localhost:8000`
+   - API docs: `http://localhost:8000/docs` (Swagger UI)
+   - Health check: `http://localhost:8000/api/health`
 
-1. Verify your git setup:
+> 📚 For more backend details, check out [`api/README.md`](api/README.md)
 
+### Frontend Setup
+
+The frontend is a Next.js application with a modern, responsive UI.
+
+1. **Navigate to the frontend directory**:
    ```bash
-   # Check that your remote is set up correctly
-   git remote -v
-
-   # Check the status of your repository
-   git status
-
-   # See which branch you're on
-   git branch
+   cd frontend
    ```
 
-    <!-- > Need more help with git? Check out our [Detailed Git Setup Guide](docs/GIT_SETUP.md) for a comprehensive walkthrough of git configuration and best practices. -->
-
-1. Open the freshly cloned repository inside Cursor!
-
+2. **Install dependencies**:
    ```bash
-   cd The-AI-Engineering-Challenge
-   cursor .
+   npm install
+   # or
+   yarn install
    ```
 
-1. Check out the existing backend code found in `/api/app.py`
+3. **Set up environment variables** (optional):
+   Create a `.env.local` file in the `frontend/` directory:
+   ```env
+   NEXT_PUBLIC_API_URL=http://localhost:8000
+   ```
+   > If you don't create this file, it defaults to `http://localhost:8000`
 
-</details>
-
-<details>
-  <summary>⚙️ Backend Setup with uv</summary>
-
-1. Install the [`uv`](https://github.com/astral-sh/uv) package manager (`pip install uv`). `uv` will download and manage Python 3.11 for you the first time you run a project command.
-2. From the project root, install dependencies with `uv sync`. This creates `.venv/` (and fetches Python 3.11 automatically if needed).
-3. Set your OpenAI API key in the shell before running the server, for example `export OPENAI_API_KEY=sk-...`.
-4. Start the backend directly from the project root with `uv run uvicorn api.app:app --reload` (or `uv run python api/app.py` for a one-off run).
-5. Additional backend details live in `api/README.md`.
-
-</details>
-
-<details>
-  <summary>🔥Setting Up for Vibe Coding Success </summary>
-
-While it is a bit counter-intuitive to set things up before jumping into vibe-coding - it's important to remember that there exists a gradient betweeen AI-Assisted Development and Vibe-Coding. We're only reaching _slightly_ into AI-Assisted Development for this challenge, but it's worth it!
-
-1. Check out the rules in `.cursor/rules/` and add theme-ing information like colour schemes in `frontend-rule.mdc`! You can be as expressive as you'd like in these rules!
-2. We're going to index some docs to make our application more likely to succeed. To do this - we're going to start with `CTRL+SHIFT+P` (or `CMD+SHIFT+P` on Mac) and we're going to type "custom doc" into the search bar.
-
-   ![image](https://i.imgur.com/ILx3hZu.png)
-
-3. We're then going to copy and paste `https://nextjs.org/docs` into the prompt.
-
-   ![image](https://i.imgur.com/psBjpQd.png)
-
-4. We're then going to use the default configs to add these docs to our available and indexed documents.
-
-   ![image](https://i.imgur.com/LULLeaF.png)
-
-5. After that - you will do the same with Vercel's documentation. After which you should see:
-
-   ![image](https://i.imgur.com/hjyXhhC.png)
-
-</details>
-
-<details>
-  <summary>😎 Vibe Coding a Front End for the FastAPI Backend</summary>
-
-1. Use `Command-L` or `CTRL-L` to open the Cursor chat console.
-
-2. Set the chat settings to the following:
-
-   ![image](https://i.imgur.com/LSgRSgF.png)
-
-3. Ask Cursor to create a frontend for your application. Iterate as much as you like!
-
-4. Run the frontend using the instructions Cursor provided.
-
-> NOTE: If you run into any errors, copy and paste them back into the Cursor chat window - and ask Cursor to fix them!
-
-> NOTE: You have been provided with a backend in the `/api` folder - please ensure your Front End integrates with it!
-
-</details>
-
-<details>
-  <summary>🚀 Deploying Your First LLM-powered Application with Vercel</summary>
-
-1. Ensure you have signed into [Vercel](https://vercel.com/) with your GitHub account.
-
-2. Ensure you have `npm` (this may have been installed in the previous vibe-coding step!) - if you need help with that, ask Cursor!
-
-3. Run the command:
-
+4. **Start the development server**:
    ```bash
-   npm install -g vercel
+   npm run dev
+   # or
+   yarn dev
    ```
 
-4. Run the command:
+   The frontend will be available at `http://localhost:3000`
 
+> 📚 For more frontend details, check out [`frontend/README.md`](frontend/README.md)
+
+---
+
+## 🧪 Testing
+
+### Running Frontend Tests
+
+The frontend includes a comprehensive test suite using Jest and React Testing Library.
+
+1. **Run all tests**:
    ```bash
-   vercel
+   cd frontend
+   npm test
+   # or
+   yarn test
    ```
 
-5. Follow the in-terminal instructions. (Below is an example of what you will see!)
+2. **Run tests in watch mode** (great for development):
+   ```bash
+   npm run test:watch
+   # or
+   yarn test:watch
+   ```
 
-   ![image](https://i.imgur.com/D1iKGCq.png)
+3. **Generate test coverage report**:
+   ```bash
+   npm run test:coverage
+   # or
+   yarn test:coverage
+   ```
 
-6. Once the build is completed - head to the provided link and try out your app!
+### Test Coverage
 
-> NOTE: Remember, if you run into any errors - ask Cursor to help you fix them!
+The test suite includes tests for:
+- `ChatInterface` - Main chat UI component
+- `Header` - Application header
+- `MetricsDashboard` - Metrics visualization
+- `PresetSelector` - Preset prompt selector
+- `ThemeToggle` - Theme switching functionality
 
-</details>
+### Backend Testing
 
-### Vercel Link to Share
+The backend API can be tested using:
 
-You'll want to make sure you share you _domains_ hyperlink to ensure people can access your app!
+1. **Interactive API Documentation**:
+   - Visit `http://localhost:8000/docs` when the server is running
+   - Use the Swagger UI to test endpoints interactively
 
-![image](https://i.imgur.com/mpXIgIz.png)
+2. **Health Check**:
+   ```bash
+   curl http://localhost:8000/api/health
+   ```
 
-> NOTE: Test this is the public link by trying to open your newly deployed site in an Incognito browser tab!
+3. **Manual Chat Test**:
+   ```bash
+   curl -X POST http://localhost:8000/api/chat \
+     -H "Content-Type: application/json" \
+     -d '{
+       "developer_message": "You are a helpful assistant.",
+       "user_message": "Hello!",
+       "model": "gpt-4.1-mini"
+     }'
+   ```
 
-### 🎉 Congratulations!
+---
 
-You just deployed your first LLM-powered application! 🚀🚀🚀 Get on linkedin and post your results and experience! Make sure to tag us at @AIMakerspace!
-
-Here's a template to get your post started!
+## 📁 Project Structure
 
 ```
-🚀🎉 Exciting News! 🎉🚀
-
-🏗️ Today, I'm thrilled to announce that I've successfully built and shipped my first-ever LLM using the powerful combination of , and the OpenAI API! 🖥️
-
-Check it out 👇
-[LINK TO APP]
-
-A big shoutout to the @AI Makerspace for all making this possible. Couldn't have done it without the incredible community there. 🤗🙏
-
-Looking forward to building with the community! 🙌✨ Here's to many more creations ahead! 🥂🎉
-
-Who else is diving into the world of AI? Let's connect! 🌐💡
-
-#FirstLLMApp
+challenge/
+├── api/                    # FastAPI backend
+│   ├── app.py             # Main FastAPI application
+│   ├── requirements.txt   # Python dependencies
+│   └── README.md          # Backend documentation
+├── frontend/              # Next.js frontend
+│   ├── app/               # Next.js app directory
+│   │   ├── page.tsx       # Main chat page
+│   │   ├── settings/      # Settings page
+│   │   ├── metrics/       # Metrics dashboard page
+│   │   └── layout.tsx     # Root layout
+│   ├── components/        # React components
+│   │   ├── ChatInterface.tsx
+│   │   ├── PresetSelector.tsx
+│   │   ├── MetricsDashboard.tsx
+│   │   └── __tests__/     # Component tests
+│   ├── hooks/             # Custom React hooks
+│   ├── contexts/          # React contexts
+│   ├── utils/             # Utility functions
+│   └── package.json       # Frontend dependencies
+├── docs/                  # Additional documentation
+└── README.md              # This file!
 ```
+
+---
+
+## 🚀 Deployment
+
+This application is deployed on Vercel. The deployment configuration is handled by:
+
+- `vercel.json` - Root-level Vercel configuration
+- `api/vercel.json` - API-specific configuration
+
+### Environment Variables for Deployment
+
+Make sure to set the following environment variables in your Vercel project:
+
+- `OPENAI_API_KEY` - Your OpenAI API key
+
+---
+
+## 🛠️ Tech Stack
+
+### Backend
+- **FastAPI** - Modern, fast web framework for building APIs
+- **OpenAI Python SDK** - Official OpenAI API client
+- **uv** - Fast Python package manager
+- **Uvicorn** - ASGI server
+
+### Frontend
+- **Next.js 16** - React framework with App Router
+- **TypeScript** - Type-safe JavaScript
+- **Tailwind CSS** - Utility-first CSS framework
+- **Chakra UI** - Component library
+- **Recharts** - Charting library for metrics
+- **Framer Motion** - Animation library
+- **Jest** - Testing framework
+- **React Testing Library** - Component testing utilities
+
+---
+
+## 📚 Additional Resources
+
+- [Backend Documentation](api/README.md) - Detailed backend setup and API documentation
+- [Frontend Documentation](frontend/README.md) - Frontend architecture and features
+- [Git Setup Guide](docs/GIT_SETUP.md) - Help with git configuration (for beginners)
+
+---
+
+## 🤝 Contributing
+
+This is a learning project, but if you'd like to contribute:
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+---
+
+## 📝 License
+
+See the [LICENSE](LICENSE) file for details.
+
+---
+
+## 🎉 Acknowledgments
+
+Built as part of the AI Engineer Challenge. Special thanks to the AI Makerspace community for inspiration and support!
+
+---
+
+<p align="center">
+  Made with ❤️ and lots of ☕
+</p>
