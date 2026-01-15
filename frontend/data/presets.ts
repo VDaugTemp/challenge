@@ -19,149 +19,162 @@ export interface PresetCategory {
 // Default preset prompts - this is the original set that can be restored
 export const DEFAULT_PRESETS: PresetCategory[] = [
   {
-    name: "Learning / Skill Growth",
-    emoji: "💡",
+    name: "Decision Making & Planning",
+    emoji: "🤔",
     prompts: [
       {
-        id: "learn-1",
+        id: "decision-1",
         text:
-          "Explain a complex topic to me as if I'm 10 years old — start with quantum physics.",
-        category: "Learning",
-        emoji: "💡",
+          "Help me think through the pros and cons of a major decision I'm facing. Ask me questions to understand my situation better.",
+        category: "Decision Making",
+        emoji: "🤔",
       },
       {
-        id: "learn-2",
+        id: "decision-2",
         text:
-          "Quiz me on Python basics with 5 questions, increasing in difficulty.",
-        category: "Learning",
-        emoji: "💡",
+          "I'm considering two different career paths. Can you help me evaluate the pros and cons of each option?",
+        category: "Decision Making",
+        emoji: "🤔",
       },
       {
-        id: "learn-3",
-        text: "Teach me a random useful fact each day in under 60 seconds.",
-        category: "Learning",
-        emoji: "💡",
+        id: "decision-3",
+        text: "Help me plan a thoughtful birthday surprise. What are some creative ideas I should consider?",
+        category: "Decision Making",
+        emoji: "🤔",
       },
     ],
   },
   {
-    name: "Games / Fun / Pass Time",
-    emoji: "🎮",
-    prompts: [
-      {
-        id: "game-1",
-        text: "Make me a riddle and give me 3 hints.",
-        category: "Games",
-        emoji: "🎮",
-      },
-      {
-        id: "game-2",
-        text: "Would you rather… but with absurd tech scenarios.",
-        category: "Games",
-        emoji: "🎮",
-      },
-      {
-        id: "game-3",
-        text: "Tell me a story one line at a time — I'll add the next.",
-        category: "Games",
-        emoji: "🎮",
-      },
-    ],
-  },
-  {
-    name: "Creativity / Writing",
+    name: "Communication & Writing",
     emoji: "✍️",
     prompts: [
       {
-        id: "creative-1",
-        text: "Give me a random writing prompt and start the first line.",
-        category: "Creativity",
-        emoji: "✍️",
-      },
-      {
-        id: "creative-2",
-        text: "Generate 3 fake startup ideas and tag them with a funny slogan.",
-        category: "Creativity",
-        emoji: "✍️",
-      },
-      {
-        id: "creative-3",
-        text: "Write a poem that sounds like a mix of Bukowski and Elon Musk.",
-        category: "Creativity",
-        emoji: "✍️",
-      },
-    ],
-  },
-  {
-    name: "Mindset / Reflection",
-    emoji: "🧘",
-    prompts: [
-      {
-        id: "mindset-1",
-        text: "Ask me 3 reflective questions about my week.",
-        category: "Mindset",
-        emoji: "🧘",
-      },
-      {
-        id: "mindset-2",
-        text: "Guide me through a 2-minute breathing exercise.",
-        category: "Mindset",
-        emoji: "🧘",
-      },
-      {
-        id: "mindset-3",
-        text: "Give me one Stoic quote and explain how to apply it today.",
-        category: "Mindset",
-        emoji: "🧘",
-      },
-    ],
-  },
-  {
-    name: "Practical / Productivity",
-    emoji: "💼",
-    prompts: [
-      {
-        id: "productivity-1",
+        id: "comm-1",
         text:
-          "Tell me about productivity techniques I can use to be more efficient.",
-        category: "Productivity",
-        emoji: "💼",
+          "Draft a polite follow-up message for someone who hasn't responded to my previous message. Make it friendly and non-pushy.",
+        category: "Communication",
+        emoji: "✍️",
       },
       {
-        id: "productivity-2",
-        text: "Help me brainstorm 5 ways to automate a boring task.",
-        category: "Productivity",
-        emoji: "💼",
+        id: "comm-2",
+        text:
+          "Help me write a professional email. I'll tell you who it's for and what it's about.",
+        category: "Communication",
+        emoji: "✍️",
       },
       {
-        id: "productivity-3",
-        text: "Make a daily focus checklist for deep work.",
-        category: "Productivity",
-        emoji: "💼",
+        id: "comm-3",
+        text:
+          "I have a message I'd like to rewrite. Can you help me make it sound more professional and polished?",
+        category: "Communication",
+        emoji: "✍️",
       },
     ],
   },
   {
-    name: "AI / Coding / Techy",
-    emoji: "🧩",
+    name: "Daily Planning & Organization",
+    emoji: "📅",
     prompts: [
       {
-        id: "tech-1",
-        text: "Explain embeddings like I'm 12.",
-        category: "Tech",
-        emoji: "🧩",
+        id: "planning-1",
+        text: "Help me create an effective daily schedule. What's the best way to structure my day for maximum productivity?",
+        category: "Planning",
+        emoji: "📅",
       },
       {
-        id: "tech-2",
-        text: "Suggest a cool AI side project idea.",
-        category: "Tech",
-        emoji: "🧩",
+        id: "planning-2",
+        text:
+          "What should I focus on today? Help me identify my top priorities and create a plan.",
+        category: "Planning",
+        emoji: "📅",
       },
       {
-        id: "tech-3",
-        text: "Show how to optimize a React app with memoization.",
-        category: "Tech",
-        emoji: "🧩",
+        id: "planning-3",
+        text:
+          "Help me organize my week. What's the best approach to balance my work, personal tasks, and self-care?",
+        category: "Planning",
+        emoji: "📅",
+      },
+    ],
+  },
+  {
+    name: "Personal Tasks & Reminders",
+    emoji: "✅",
+    prompts: [
+      {
+        id: "tasks-1",
+        text:
+          "I have some ingredients in my fridge and need meal ideas. Can you suggest recipes based on what I have?",
+        category: "Tasks",
+        emoji: "✅",
+      },
+      {
+        id: "tasks-2",
+        text:
+          "Help me create a comprehensive checklist for an upcoming trip. What are the essential things I shouldn't forget?",
+        category: "Tasks",
+        emoji: "✅",
+      },
+      {
+        id: "tasks-3",
+        text:
+          "What are some important things I should remember to do this week? Help me think of tasks I might be forgetting.",
+        category: "Tasks",
+        emoji: "✅",
+      },
+    ],
+  },
+  {
+    name: "Problem Solving & Advice",
+    emoji: "💡",
+    prompts: [
+      {
+        id: "advice-1",
+        text:
+          "I'm facing a challenge and need help thinking through solutions. Can you ask me questions to better understand my situation?",
+        category: "Advice",
+        emoji: "💡",
+      },
+      {
+        id: "advice-2",
+        text:
+          "I'm dealing with a difficult situation at work. What are some strategies I could use to handle it effectively?",
+        category: "Advice",
+        emoji: "💡",
+      },
+      {
+        id: "advice-3",
+        text:
+          "Help me brainstorm creative ways to achieve a goal I have. I'll share the goal with you.",
+        category: "Advice",
+        emoji: "💡",
+      },
+    ],
+  },
+  {
+    name: "Time Management & Productivity",
+    emoji: "⏰",
+    prompts: [
+      {
+        id: "time-1",
+        text:
+          "I have multiple tasks to complete. How should I prioritize them? What's the best method for deciding what to do first?",
+        category: "Time Management",
+        emoji: "⏰",
+      },
+      {
+        id: "time-2",
+        text:
+          "Help me estimate how long different tasks will take. I'll share my task list with you.",
+        category: "Time Management",
+        emoji: "⏰",
+      },
+      {
+        id: "time-3",
+        text:
+          "I have a big project to tackle. What's the best way to break it down into smaller, manageable steps?",
+        category: "Time Management",
+        emoji: "⏰",
       },
     ],
   },

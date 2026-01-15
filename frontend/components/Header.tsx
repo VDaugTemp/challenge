@@ -36,7 +36,7 @@ export default function Header() {
                 e.currentTarget.style.opacity = "1";
               }}
             >
-              AI Chat Application
+              AI Assistant
             </h1>
           </Link>
 

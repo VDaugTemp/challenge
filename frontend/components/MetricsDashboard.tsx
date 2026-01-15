@@ -63,25 +63,6 @@ function AnimatedNumber({
   );
 }
 
-// Sentiment icon component with animation
-function SentimentIcon({ trend }: { trend: "positive" | "neutral" | "negative" }) {
-  const iconMap = {
-    positive: "↑",
-    neutral: "→",
-    negative: "↓",
-  };
-
-  return (
-    <motion.span
-      initial={{ opacity: 0, scale: 0 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ delay: 0.3, type: "spring", stiffness: 200 }}
-      style={{ display: "inline-block", marginLeft: "0.5rem" }}
-    >
-      {iconMap[trend]}
-    </motion.span>
-  );
-}
 
 // Animated divider component
 function AnimatedDivider({ color }: { color: string }) {
@@ -206,24 +187,13 @@ export default function MetricsDashboard() {
     return styles.cardColors[cardColorKeys[index % cardColorKeys.length]];
   };
 
-  const sentimentColor =
-    metrics?.sentimentTrend === "positive"
-      ? styles.chartBar
-      : metrics?.sentimentTrend === "negative"
-      ? "#ef4444"
-      : styles.textSecondary;
-
-  // Mock time series data for charts
-  const timeSeriesData = useMemo(() => {
-    if (!metrics) return [];
-    return [
-      { time: "Mon", responseTime: metrics.avgResponseTime, wordCount: metrics.avgWordCount },
-      { time: "Tue", responseTime: metrics.avgResponseTime + 100, wordCount: metrics.avgWordCount + 10 },
-      { time: "Wed", responseTime: metrics.avgResponseTime - 50, wordCount: metrics.avgWordCount - 5 },
-      { time: "Thu", responseTime: metrics.avgResponseTime + 200, wordCount: metrics.avgWordCount + 20 },
-      { time: "Fri", responseTime: metrics.avgResponseTime, wordCount: metrics.avgWordCount },
-    ];
-  }, [metrics]);
+  // Format hour for display (e.g., 14 -> "2:00 PM")
+  const formatHour = (hour: number): string => {
+    if (hour === 0) return "12:00 AM";
+    if (hour < 12) return `${hour}:00 AM`;
+    if (hour === 12) return "12:00 PM";
+    return `${hour - 12}:00 PM`;
+  };
 
   // Chart colors based on theme
   const chartColors = {
@@ -260,7 +230,25 @@ export default function MetricsDashboard() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
       >
-        <p style={{ color: styles.textSecondary }}>No metrics available</p>
+        <p style={{ color: styles.textSecondary }}>No metrics available. Start chatting to see your statistics!</p>
+      </motion.div>
+    );
+  }
+
+  // Handle empty data gracefully
+  if (metrics.totalMessages === 0) {
+    return (
+      <motion.div
+        className="p-8 rounded-xl border"
+        style={{
+          backgroundColor: styles.surface,
+          borderColor: styles.border,
+          backdropFilter: "blur(10px)",
+        }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+      >
+        <p style={{ color: styles.textSecondary }}>No messages yet. Start a conversation to see your metrics!</p>
       </motion.div>
     );
   }
@@ -316,10 +304,10 @@ export default function MetricsDashboard() {
         animate="visible"
       >
         {[
-          { label: "Avg Response Time", value: metrics.avgResponseTime, suffix: "ms" },
-          { label: "Avg Word Count", value: metrics.avgWordCount },
           { label: "Total Messages", value: metrics.totalMessages },
           { label: "Total Sessions", value: metrics.totalSessions },
+          { label: "Avg Messages/Session", value: metrics.avgMessagesPerSession },
+          { label: "Avg Word Count", value: metrics.avgWordCount },
         ].map((metric, index) => {
           const cardColors = getCardColors(index);
           return (
@@ -379,36 +367,79 @@ export default function MetricsDashboard() {
         })}
       </motion.div>
 
-      {/* Sentiment Trend Section */}
+      {/* Activity Insights Section */}
       <motion.div
-        className="mb-8"
+        className="mb-8 grid grid-cols-1 md:grid-cols-3 gap-4"
         variants={cardVariants}
       >
-        <div className="flex items-center">
+        <div className="p-4 rounded-lg border" style={{ backgroundColor: styles.cardBg, borderColor: styles.border }}>
           <p
-            className="text-sm font-medium mb-1"
+            className="text-xs font-medium mb-1"
             style={{
               color: styles.textSecondary,
               letterSpacing: "0.02em",
             }}
           >
-            Sentiment Trend
+            Most Active Day
           </p>
-        </div>
-        <div className="flex items-center">
           <motion.p
-            className="text-xl font-semibold capitalize"
+            className="text-lg font-semibold"
             style={{
-              color: sentimentColor,
+              color: styles.text,
               fontFamily: styles.fontFamily,
             }}
             initial={{ opacity: 0, x: -10 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.5, duration: 0.4 }}
           >
-            {metrics.sentimentTrend}
+            {metrics.mostActiveDay}
           </motion.p>
-          <SentimentIcon trend={metrics.sentimentTrend} />
+        </div>
+        <div className="p-4 rounded-lg border" style={{ backgroundColor: styles.cardBg, borderColor: styles.border }}>
+          <p
+            className="text-xs font-medium mb-1"
+            style={{
+              color: styles.textSecondary,
+              letterSpacing: "0.02em",
+            }}
+          >
+            Most Active Hour
+          </p>
+          <motion.p
+            className="text-lg font-semibold"
+            style={{
+              color: styles.text,
+              fontFamily: styles.fontFamily,
+            }}
+            initial={{ opacity: 0, x: -10 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.6, duration: 0.4 }}
+          >
+            {formatHour(metrics.mostActiveHour)}
+          </motion.p>
+        </div>
+        <div className="p-4 rounded-lg border" style={{ backgroundColor: styles.cardBg, borderColor: styles.border }}>
+          <p
+            className="text-xs font-medium mb-1"
+            style={{
+              color: styles.textSecondary,
+              letterSpacing: "0.02em",
+            }}
+          >
+            Avg Session Duration
+          </p>
+          <motion.p
+            className="text-lg font-semibold"
+            style={{
+              color: styles.text,
+              fontFamily: styles.fontFamily,
+            }}
+            initial={{ opacity: 0, x: -10 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.7, duration: 0.4 }}
+          >
+            {metrics.avgSessionDuration.toFixed(1)} min
+          </motion.p>
         </div>
       </motion.div>
 
@@ -422,7 +453,7 @@ export default function MetricsDashboard() {
         initial="hidden"
         animate="visible"
       >
-        {/* Response Time Chart */}
+        {/* Messages Over Time Chart */}
         <motion.div
           variants={chartVariants}
           className="p-6 rounded-xl border"
@@ -446,10 +477,10 @@ export default function MetricsDashboard() {
               fontFamily: styles.fontFamily,
             }}
           >
-            Response Time Trend
+            Messages Over Time
           </h3>
           <ResponsiveContainer width="100%" height={240}>
-            <LineChart data={timeSeriesData}>
+            <LineChart data={metrics.messagesOverTime.length > 0 ? metrics.messagesOverTime : [{ date: "No data", count: 0 }]}>
               <CartesianGrid
                 strokeDasharray="3 3"
                 stroke={styles.border}
@@ -457,11 +488,14 @@ export default function MetricsDashboard() {
                 vertical={false}
               />
               <XAxis
-                dataKey="time"
+                dataKey="date"
                 stroke={styles.textSecondary}
                 style={{ fontSize: "11px" }}
                 tick={{ fill: styles.textSecondary }}
                 axisLine={{ stroke: styles.border, strokeWidth: 0.5 }}
+                angle={-45}
+                textAnchor="end"
+                height={60}
               />
               <YAxis
                 stroke={styles.textSecondary}
@@ -475,7 +509,7 @@ export default function MetricsDashboard() {
               />
               <Line
                 type="monotone"
-                dataKey="responseTime"
+                dataKey="count"
                 stroke={chartColors.line}
                 strokeWidth={3}
                 dot={{ fill: chartColors.line, r: 4, strokeWidth: 2, stroke: styles.surface }}
@@ -487,7 +521,7 @@ export default function MetricsDashboard() {
           </ResponsiveContainer>
         </motion.div>
 
-        {/* Word Count Chart */}
+        {/* Average Response Length Chart */}
         <motion.div
           variants={chartVariants}
           className="p-6 rounded-xl border"
@@ -511,49 +545,22 @@ export default function MetricsDashboard() {
               fontFamily: styles.fontFamily,
             }}
           >
-            Word Count Trend
+            Content Statistics
           </h3>
-          <ResponsiveContainer width="100%" height={240}>
-            <BarChart data={timeSeriesData}>
-              <CartesianGrid
-                strokeDasharray="3 3"
-                stroke={styles.border}
-                opacity={0.1}
-                vertical={false}
-              />
-              <XAxis
-                dataKey="time"
-                stroke={styles.textSecondary}
-                style={{ fontSize: "11px" }}
-                tick={{ fill: styles.textSecondary }}
-                axisLine={{ stroke: styles.border, strokeWidth: 0.5 }}
-              />
-              <YAxis
-                stroke={styles.textSecondary}
-                style={{ fontSize: "11px" }}
-                tick={{ fill: styles.textSecondary }}
-                axisLine={{ stroke: styles.border, strokeWidth: 0.5 }}
-              />
-              <Tooltip
-                content={<CustomTooltip styles={styles} />}
-                cursor={{ fill: chartColors.bar + "20" }}
-              />
-              <Bar
-                dataKey="wordCount"
-                fill={chartColors.bar}
-                radius={[8, 8, 0, 0]}
-                animationDuration={800}
-                animationBegin={0}
-              >
-                {timeSeriesData.map((entry, index) => (
-                  <Cell
-                    key={`cell-${index}`}
-                    fill={chartColors.bar}
-                  />
-                ))}
-              </Bar>
-            </BarChart>
-          </ResponsiveContainer>
+          <div className="flex flex-col gap-4">
+            <div className="p-4 rounded-lg" style={{ backgroundColor: styles.surface }}>
+              <p className="text-xs mb-1" style={{ color: styles.textSecondary }}>Average Word Count (All Messages)</p>
+              <p className="text-2xl font-bold" style={{ color: chartColors.bar }}>
+                {metrics.avgWordCount} words
+              </p>
+            </div>
+            <div className="p-4 rounded-lg" style={{ backgroundColor: styles.surface }}>
+              <p className="text-xs mb-1" style={{ color: styles.textSecondary }}>Average Response Length (Assistant)</p>
+              <p className="text-2xl font-bold" style={{ color: chartColors.bar }}>
+                {metrics.avgResponseLength} words
+              </p>
+            </div>
+          </div>
         </motion.div>
       </motion.div>
     </motion.div>

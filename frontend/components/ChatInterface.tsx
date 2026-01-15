@@ -8,6 +8,7 @@ import { useThemeStyles } from "@/hooks/useThemeStyles";
 import { streamChat } from "@/utils/api";
 import { ChatMessage } from "@/types";
 import BlobBackground from "./BlobBackground";
+import MarkdownRenderer from "./MarkdownRenderer";
 
 interface ChatInterfaceProps {
   showInputOnly?: boolean;
@@ -290,9 +291,13 @@ const ChatInterface = forwardRef<ChatInterfaceRef, ChatInterfaceProps>(
                   msg.role === "user" ? styles.messageUserBoxShadow : "none",
               }}
             >
-              <p className="whitespace-pre-wrap" style={{ fontFamily: styles.fontFamily }}>
-                {msg.content}
-              </p>
+              {msg.role === "assistant" ? (
+                <MarkdownRenderer content={msg.content} />
+              ) : (
+                <p className="whitespace-pre-wrap" style={{ fontFamily: styles.fontFamily }}>
+                  {msg.content}
+                </p>
+              )}
               <p className="text-xs mt-1" style={{ opacity: 0.7 }}>
                 {new Date(msg.timestamp).toLocaleTimeString()}
               </p>
@@ -312,7 +317,7 @@ const ChatInterface = forwardRef<ChatInterfaceRef, ChatInterfaceProps>(
                 fontFamily: styles.fontFamily,
               }}
             >
-              <p className="whitespace-pre-wrap">{currentResponse}</p>
+              <MarkdownRenderer content={currentResponse} />
               <span
                 className="inline-block w-2 h-4 animate-pulse ml-1"
                 style={{ backgroundColor: styles.primary }}

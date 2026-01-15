@@ -4,8 +4,8 @@ import { ChatHistoryProviderWrapper } from "@/components/ChatHistoryProviderWrap
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "AI Chat Application",
-  description: "A chat application powered by OpenAI",
+  title: "AI Assistant",
+  description: "Your personal AI assistant powered by OpenAI",
 };
 
 export default function RootLayout({

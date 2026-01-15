@@ -1,6 +1,6 @@
-# Frontend - AI Chat Application
+# Frontend - AI Assistant
 
-A Next.js-based chat application with preset prompts, metrics dashboard, and chat history persistence.
+A Next.js-based personal AI assistant with preset prompts, metrics dashboard, and chat history persistence.
 
 ## Features
 

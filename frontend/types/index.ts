@@ -16,10 +16,19 @@ export interface ChatSession {
 }
 
 export interface Metrics {
-  avgResponseTime: number; // in milliseconds
-  avgWordCount: number;
-  sentimentTrend: "positive" | "neutral" | "negative";
+  // Engagement metrics
   totalMessages: number;
   totalSessions: number;
+  avgMessagesPerSession: number;
+  avgSessionDuration: number; // in minutes
+  
+  // Content metrics
+  avgWordCount: number;
+  avgResponseLength: number; // average word count of assistant messages
+  
+  // Activity metrics
+  messagesOverTime: Array<{ date: string; count: number }>; // messages grouped by day
+  mostActiveHour: number; // hour of day (0-23) with most messages
+  mostActiveDay: string; // day of week with most messages
 }
 
